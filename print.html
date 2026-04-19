@@ -2,7 +2,6 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8" />
-
 <title>PDF Vorschau</title>
 
 <style>
@@ -27,21 +26,29 @@
         page-break-inside: avoid;
     }
 </style>
-
 </head>
+
 <body>
 
-<div id="content" class="content"></div>
+<div id="content" class="content">Wird geladen…</div>
 
 <script>
     const params = new URLSearchParams(window.location.search);
     const html = params.get("html");
-    document.getElementById("content").innerHTML = html;
 
+    // Wenn kein Inhalt übergeben wurde → Fehlermeldung anzeigen
+    if (!html) {
+        document.getElementById("content").innerHTML =
+            "<h2>Kein Inhalt übergeben.</h2><p>Die Seite muss mit ?html=... aufgerufen werden.</p>";
+    } else {
+        document.getElementById("content").innerHTML = html;
+    }
+
+    // Druck erst starten, wenn DOM sichtbar ist
     window.onload = () => {
         setTimeout(() => {
             window.print();
-        }, 300);
+        }, 500);
     };
 </script>
 
