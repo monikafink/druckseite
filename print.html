@@ -45,15 +45,16 @@
 <div id="content" class="content">Wird geladen…</div>
 
 <script>
-    const params = new URLSearchParams(window.location.search);
-    const html = params.get("html");
-
-    if (!html) {
-        document.getElementById("content").innerHTML =
-            "<h2>Kein Inhalt übergeben.</h2><p>Die Seite muss mit ?html=... aufgerufen werden.</p>";
-    } else {
-        document.getElementById("content").innerHTML = html;
-    }
+    // POST-Daten auslesen
+    window.onload = () => {
+        if (window.location.hash) {
+            const decoded = decodeURIComponent(window.location.hash.substring(1));
+            document.getElementById("content").innerHTML = decoded;
+        } else {
+            document.getElementById("content").innerHTML =
+                "<h2>Kein Inhalt empfangen.</h2>";
+        }
+    };
 
     document.getElementById("printButton").onclick = () => {
         window.print();
