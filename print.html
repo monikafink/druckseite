@@ -5,20 +5,25 @@
 <title>PDF Vorschau</title>
 
 <style>
-   @page {
-    size: A4;
-    margin: 0;
-}
+    /* ⭐ Vollständig randlos */
+    @page {
+        size: A4;
+        margin: 0 !important;
+    }
 
-body {
-    margin: 0 !important;
-    padding: 0 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-}
+    /* ⭐ Keine Browser-Ränder, Farben erzwingen */
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        background: white !important;
+    }
 
-
-    .content {
+    /* ⭐ Inhalt ohne zusätzliche Abstände */
+    #content {
+        margin: 0 !important;
+        padding: 0 !important;
         width: 100%;
         box-sizing: border-box;
         page-break-inside: auto;
@@ -28,6 +33,7 @@ body {
         page-break-inside: avoid;
     }
 
+    /* ⭐ Druckbutton (nur auf Bildschirm sichtbar) */
     #printButton {
         padding: 10px 20px;
         background: #0078d4;
@@ -38,16 +44,22 @@ body {
         margin: 20px;
         font-size: 16px;
     }
+
+    /* ⭐ Beim Drucken komplett ausblenden */
+    @media print {
+        #printButton {
+            display: none !important;
+        }
+    }
 </style>
 </head>
 
 <body>
 
 <button id="printButton">Drucken</button>
-<div id="content" class="content">Wird geladen…</div>
+<div id="content">Wird geladen…</div>
 
 <script>
-    // POST-Daten auslesen
     window.onload = () => {
         if (window.location.hash) {
             const decoded = decodeURIComponent(window.location.hash.substring(1));
