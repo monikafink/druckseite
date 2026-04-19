@@ -25,18 +25,29 @@
     table, tr, td, th {
         page-break-inside: avoid;
     }
+
+    #printButton {
+        padding: 10px 20px;
+        background: #0078d4;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 20px;
+        font-size: 16px;
+    }
 </style>
 </head>
 
 <body>
 
+<button id="printButton">Drucken</button>
 <div id="content" class="content">Wird geladen…</div>
 
 <script>
     const params = new URLSearchParams(window.location.search);
     const html = params.get("html");
 
-    // Wenn kein Inhalt übergeben wurde → Fehlermeldung anzeigen
     if (!html) {
         document.getElementById("content").innerHTML =
             "<h2>Kein Inhalt übergeben.</h2><p>Die Seite muss mit ?html=... aufgerufen werden.</p>";
@@ -44,11 +55,8 @@
         document.getElementById("content").innerHTML = html;
     }
 
-    // Druck erst starten, wenn DOM sichtbar ist
-    window.onload = () => {
-        setTimeout(() => {
-            window.print();
-        }, 500);
+    document.getElementById("printButton").onclick = () => {
+        window.print();
     };
 </script>
 
